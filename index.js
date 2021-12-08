@@ -8,12 +8,19 @@ const {validateToken} = require('./middlewares/AuthUser')
 const {validate_token} = require('./middlewares/AuthJWT');
 const { response } = require('express');
 
-const port = process.env.PORT || 3000;
-const db = mysql.createPool({
+const port = process.env.PORT || 3001;
+/*const db = mysql.createPool({
     host: '127.0.0.1',
     user: 'root',
     password: 'Reidekonoh@753',
     database: 'tcc',
+})*/
+
+const db = mysql.createPool({
+    host: 'mysqlserver.cvk4ethxrqps.us-east-2.rds.amazonaws.com',
+    user: 'admin',
+    password: 'Reidekonoha753',
+    database: 'ask_if',
 })
 
 app.use(cors())
@@ -379,9 +386,7 @@ const query= "INSERT INTO posts_monitores (Titulo,Conteudo,materia,arquivos,matr
                 res.send(result)
                 });
                 });            
-app.get("/", function(req,res){
-    res.send("Tá bombando papai")
-})
+
 app.listen(port,()=>{
     console.log('porta 3001 aberta');
 })
