@@ -379,7 +379,9 @@ const query= "INSERT INTO posts_monitores (Titulo,Conteudo,materia,arquivos,matr
                 res.send(result)
                 });
                 });            
-
+app.get("/", function(req,res){
+    res.send("Tá bombando papai")
+})
 app.listen(port,()=>{
     console.log('porta 3001 aberta');
 })
