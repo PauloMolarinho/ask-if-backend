@@ -9,13 +9,14 @@ const {validate_token} = require('./middlewares/AuthJWT');
 const { response } = require('express');
 
 const port = process.env.PORT || 3001;
+
 /*const db = mysql.createPool({
     host: '127.0.0.1',
     user: 'root',
     password: 'Reidekonoh@753',
     database: 'tcc',
-})*/
-
+})
+*/
 const db = mysql.createPool({
     host: 'mysqlserver.cvk4ethxrqps.us-east-2.rds.amazonaws.com',
     user: 'admin',
@@ -26,45 +27,8 @@ const db = mysql.createPool({
 app.use(cors())
 app.use(express.json({limit: '50mb'}))
 app.use(express.urlencoded({extended:true, limit: '50mb'}))
-app.post("/users", (req, res)=>{
-
-    const nome = req.body.name
-    const matricula = req.body.matricula
-    const email = req.body.email
-    const curso = req.body.curso
-    const ano = req.body.ano
-    const senha = req.body.senha
-
-    const sqlInsert = "INSERT INTO usuario(matricula,nome,email,curso,ano,senha) VALUES(?,?,?,?,?,?)"
-    db.query(sqlInsert, [matricula,nome,email,curso,ano,senha],(err,result)=>{
-res.send(result)
-    })
-})
-
-app.post("/login", (req, res)=>{
-    const query = "SELECT matricula, nome, cargo, materia FROM usuario WHERE senha = ?"
-    const password = req.body.senha
-    const matricula = req.body.matricula
 
 
-    var status = 0
-
-    db.query(query, [password],(err,result)=>{
-           if(typeof(result[0])=== "undefined"){
-            res.json({err: "Matricula ou senha errados"})
-           }else{
-              
-               if(result[0].matricula == matricula){
-               
-                   const accessToken = sign({username: result[0].nome, matricula: result[0].matricula, cargo: result[0].cargo, materia:result[0].materia},"SystemCall")
-                   res.json(accessToken)
-               }else{
-                
-                res.json({err: "Matricula ou senha errados"})
-               }
-           }
-            })
-    })
 app.get("/perguntas", validate_token, (req, res)=>{
 const query= "SELECT ID_P, TITULO, CONTEUDO, MATRICULA, MATERIA, RESPONDIDA, NOME_USUARIO, NOME_MATERIA FROM perguntas ORDER BY ID_P desc LIMIT 20"
 db.query(query, (err,result)=>{
@@ -72,8 +36,6 @@ var resultado =  result
 res.json({result: resultado})
 });
 });
-
-
 
 
 app.get("/exist", validate_token, (req, res)=>{
@@ -161,7 +123,7 @@ app.post("/get_answers", (req, res)=>{
     });
     });
 
-    app.post("/set_answers", ( req, res)=>{
+    app.post("/set_answers",validate_token,( req, res)=>{
         
         const comentario = req.body.comentario
         const id_pergunta = req.body.id
@@ -191,7 +153,7 @@ app.post("/get_answers", (req, res)=>{
         });
 
 
-        app.post("/set_questions", (req, res)=>{
+        app.post("/set_questions",validate_token,(req, res)=>{
        
             const conteudo = req.body.conteudo
             const titulo = req.body.titulo
@@ -329,7 +291,7 @@ res.send(result)
 });
 });
 
-app.post("/InsertInfos", (req, res)=>{
+app.post("/InsertInfos",validate_token,(req, res)=>{
 console.log(req.body)
 
 const materia = req.body.materia
