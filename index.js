@@ -347,7 +347,15 @@ const query= "INSERT INTO posts_monitores (Titulo,Conteudo,materia,arquivos,matr
                    
                 res.send(result)
                 });
-                });            
+                });
+
+app.post("/getQuestionsByWhere",validate_token,(req, res)=>{
+                    const where = req.body.where
+                    const query= "SELECT ID_P, TITULO, CONTEUDO, MATRICULA, MATERIA, RESPONDIDA, NOME_USUARIO, NOME_MATERIA FROM perguntas  WHERE "+where
+                    db.query(query, (err,result)=>{
+                    res.send({result: result})
+                   });
+                    });
 
 app.listen(port,()=>{
     console.log('porta 3001 aberta');
