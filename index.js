@@ -349,7 +349,7 @@ const query= "INSERT INTO posts_monitores (Titulo,Conteudo,materia,arquivos,matr
                 });
                 });
 
-app.post("/getQuestionsByWhere",validate_token,(req, res)=>{
+app.post("/getQuestionsByWhere",(req, res)=>{
                     const where = req.body.where
                     const query= "SELECT ID_P, TITULO, CONTEUDO, MATRICULA, MATERIA, RESPONDIDA, NOME_USUARIO, NOME_MATERIA FROM perguntas  WHERE "+where
                     db.query(query, (err,result)=>{
