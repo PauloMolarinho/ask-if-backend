@@ -25,8 +25,8 @@ const db = mysql.createPool({
 })
 
 app.use(cors())
-app.use(express.json({limit: '50mb'}))
-app.use(express.urlencoded({extended:true, limit: '50mb'}))
+app.use(express.json({limit: '40mb'}))
+app.use(express.urlencoded({extended:true, limit: '40mb'}))
 
 
 app.get("/perguntas", validate_token, (req, res)=>{
