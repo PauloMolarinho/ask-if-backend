@@ -30,7 +30,7 @@ app.use(express.urlencoded({extended:true, limit: '40mb'}))
 
 
 app.get("/perguntas", validate_token, (req, res)=>{
-const query= "SELECT ID_P, TITULO, CONTEUDO, MATRICULA, MATERIA, RESPONDIDA, NOME_USUARIO, NOME_MATERIA FROM perguntas ORDER BY ID_P desc LIMIT 20"
+const query= "SELECT ID_P, TITULO, CONTEUDO, MATRICULA, MATERIA, RESPONDIDA, NOME_USUARIO, NOME_MATERIA FROM perguntas ORDER BY ID_P desc LIMIT 30"
 db.query(query, (err,result)=>{
 var resultado =  result
 res.json({result: resultado})
