@@ -351,7 +351,7 @@ const query= "INSERT INTO posts_monitores (Titulo,Conteudo,materia,arquivos,matr
 
 app.post("/getQuestionsByWhere",validate_token,(req, res)=>{
                     const where = req.body.where
-                    const query= "SELECT ID_P, TITULO, CONTEUDO, MATRICULA, MATERIA, RESPONDIDA, NOME_USUARIO, NOME_MATERIA FROM perguntas  WHERE "+where
+                    const query= "SELECT ID_P, TITULO, CONTEUDO, MATRICULA, MATERIA, RESPONDIDA, NOME_USUARIO, NOME_MATERIA FROM perguntas  WHERE "+where+" ORDER BY ID_P DESC"
                     db.query(query, (err,result)=>{
                     res.send({result: result})
                    });
