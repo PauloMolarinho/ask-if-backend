@@ -12,10 +12,10 @@ const { text } = require('body-parser');
 const port = process.env.PORT || 3001;
 
 const db = mysql.createPool({
-    host: '',
-    user: '',
-    password: '',
-    database: '',
+   host: 'mysqlserver.cvk4ethxrqps.us-east-2.rds.amazonaws.com',
+    user: 'admin',
+    password: 'Reidekonoha753',
+    database: 'ask_if',
 })
 
 
