@@ -606,7 +606,7 @@ const query= "INSERT INTO posts_monitores (Titulo,Conteudo,materia,arquivos,matr
                                                                 });
 
 app.listen(port,()=>{
-    console.log('porta 3001 abertaa');
+    console.log('porta 3001 aberta');
 })
 
 
